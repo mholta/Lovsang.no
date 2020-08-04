@@ -53,10 +53,11 @@ function convertSheetToChordPro(sheet) {
   var lines = sheet.split("\n")
   var convertedTemplate = ''
   var lastLineWasChords = false
+  var mergedWithNextLine = false
 
   lines.forEach(function(line, lineIndex) {
+    var nextLine = lines[lineIndex + 1]? lines[lineIndex + 1] : '';
     if (isChordLine(line)) {
-      var nextLine = lines[lineIndex + 1]
       if (nextLine && ! isChordLine(nextLine)) {
         chordList = line.trim().replace(/ +/g, ' ').split(' ')
         var textLine = lines[lineIndex + 1]
@@ -70,8 +71,10 @@ function convertSheetToChordPro(sheet) {
           var insert = '[' + chord + ']'
           textLine = [a, insert, b].join('')
         })
-        convertedTemplate += textLine + '\n';
-        lastLineWasChords = true;
+        convertedTemplate += textLine + '\n'
+        lastLineWasChords = true
+        mergedWithNextLine = true
+        
       }
 
       if (line != '' && nextLine == '') {
@@ -87,14 +90,19 @@ function convertSheetToChordPro(sheet) {
           var b = textLine.substring(chordIndex + chord.length)
           var insert = '[' + chord + ']'
           textLine = [a, insert, b].join('')
-
         })
-        convertedTemplate += textLine + '\n';
-        lastLineWasChords = true;
+        convertedTemplate += textLine + '\n'
+        lastLineWasChords = true
+        mergedWithNextLine = false
       }
     } 
     else {
-      convertedTemplate += line + '\n'
+      if (line == '') convertedTemplate += '\n'
+      else if (! mergedWithNextLine) convertedTemplate += line + '\n'
+      else if (! lastLineWasChords) {
+        convertedTemplate += line + '\n'
+      }
+      mergedWithNextLine = false
     }
   })
   return convertedTemplate
