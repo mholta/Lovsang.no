@@ -43,7 +43,7 @@ function convertSheetToChordPro(sheet) {
       if (! isChord(word) && word != '') onlyChords = false;
     })
 
-    if (line == '') return false
+    if (line.trim() == '') return false
     if (lineList.length == 0) return false
     if (line.charAt(line.length-1) == ":") return false
 
@@ -56,9 +56,10 @@ function convertSheetToChordPro(sheet) {
   var mergedWithNextLine = false
 
   lines.forEach(function(line, lineIndex) {
+    var containsDividers = line.match(/\|+/g) ? true : false
     var nextLine = lines[lineIndex + 1]? lines[lineIndex + 1] : '';
     if (isChordLine(line)) {
-      if (nextLine && ! isChordLine(nextLine)) {
+      if (nextLine.trim() != '' && ! isChordLine(nextLine)) {
         chordList = line.trim().replace(/ +/g, ' ').split(' ')
         var textLine = lines[lineIndex + 1]
         var delta = 0
@@ -77,23 +78,46 @@ function convertSheetToChordPro(sheet) {
         
       }
 
-      if (line != '' && nextLine == '') {
+      // If isChordLine(nextLine)
+      // if containsDividers
+      // if ! containsDividers
+
+      if (line.trim() != '' && nextLine.trim() == '') {
         chordList = line.trim().replace(/ +/g, ' ').split(' ')
-        var textLine = line
-        var delta = 0
-        chordList.forEach(function(chord, chordListIndex) {
-          chord = chord.replace(/\|+/g, '')
-          var chordOrigIndex = line.indexOf(chord)
-          var chordIndex = chordOrigIndex + delta
-          delta += chord.length + 1
-          var a = textLine.substring(0, chordIndex)
-          var b = textLine.substring(chordIndex + chord.length)
-          var insert = '[' + chord + ']'
-          textLine = [a, insert, b].join('')
-        })
-        convertedTemplate += textLine + '\n'
-        lastLineWasChords = true
-        mergedWithNextLine = false
+
+        if (containsDividers) {
+          var textLine = line
+          var delta = 0
+          chordList.forEach(function(chord, chordListIndex) {
+            chord = chord.replace(/\|+/g, '')
+            var chordOrigIndex = line.indexOf(chord)
+            var chordIndex = chordOrigIndex + delta
+            delta += chord.length + 1
+            var a = textLine.substring(0, chordIndex)
+            var b = textLine.substring(chordIndex + chord.length)
+            var insert = '[' + chord + ']'
+            textLine = [a, insert, b].join('')
+          })
+
+          convertedTemplate += textLine + '\n'
+          lastLineWasChords = true
+          mergedWithNextLine = false
+        } 
+        else {
+          var textLine = ''
+          var lastIndex = 0
+          var spaces = 0
+          var chordIndex = 0
+          chordList.forEach(function(chord, chordListIndex) {
+            chordIndex = line.indexOf(chord)
+            spaces = chordIndex - lastIndex - 1
+            textLine += new Array(spaces + 1).join(' ') + '[' + chord + ']'
+            lastIndex = chordIndex
+          })
+          convertedTemplate += textLine + '\n'
+          lastLineWasChords = true
+          mergedWithNextLine = false
+        }
       }
     } 
     else {
