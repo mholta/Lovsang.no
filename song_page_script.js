@@ -38,7 +38,7 @@ var chordsColumn = document.getElementById(sheet_col_id);
 const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
 const infoSwitch = document.getElementById(info_switch_id);
 const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
-const colWrap = document.getElementById(columns_btn_wrapper_id)
+const colWrap = document.getElementById(columns_switch_wrapper_id)
 const columnsSwitch = document.getElementById(columns_switch_wrap_id);
 
 const c = document.getElementById(chords_btn_id)
