@@ -72,17 +72,14 @@ console.log('values on load',mode,transpose)
 c.addEventListener("click", function() {
   mode = 0
   parseSheets()
-  setQuery()
 })
 l.addEventListener("click", function() {
   mode = 1
   parseSheets()
-  setQuery()
 })
 n.addEventListener("click", function() {
   mode = 2
   parseSheets()
-  setQuery()
 })
 
 function styleChanges(print_mode = false) {
