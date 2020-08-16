@@ -3,7 +3,6 @@
   var preVid = document.getElementById("pre-vid")
   var spotifyLoaded = false
   var vidLoaded = false
-  var initVidThumbs = initVidThumbs()
 
 function lazySpotify() {
 	if (! spotifyLoaded && isInViewport(spotifyTarget)) {
@@ -14,7 +13,7 @@ function lazySpotify() {
   }
 }
 
-function isInViewport = function (elem) {
+function isInViewport(elem) {
   var bounding = elem.getBoundingClientRect();
   return (
       bounding.top >= -100 &&
@@ -24,17 +23,18 @@ function isInViewport = function (elem) {
   )
 }
 
-function lazyVideos() {
+var lazyVideos() = function() {
 	if (! vidLoaded && isInViewport(preVid)) {
-		VideoLoaded = true
-    initVidThumbs(true)
-    window.removeEventListener('scroll', lazyVideos, false)
-    window.removeEventListener('resize', lazyVideos, false)
+		vidLoaded = true
+	    initVidThumbs(true)
+	    window.removeEventListener('scroll', lazyVideos, false)
+	    window.removeEventListener('resize', lazyVideos, false)
   }
 }
 
 function initLazy() {
   lazySpotify()
+	lazyVideos()
   window.addEventListener('scroll', lazySpotify, false)
   window.addEventListener('resize', lazySpotify, false)
 
