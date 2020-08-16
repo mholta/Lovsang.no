@@ -3,6 +3,7 @@ var mode = 0;           // query
 var transpose = 0;      // query
 var onlyChords = false
 var twoCol = false
+if (window.location.toString().indexOf('?') != -1) getQuery() // get state from query-string
 
 // Required variables (deafult)
 var transp_btn_up_id = "transpose-up"
