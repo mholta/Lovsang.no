@@ -3,7 +3,8 @@ var mode = 0;           // query
 var transpose = 0;      // query
 var onlyChords = false
 var twoCol = false
-if (window.location.toString().indexOf('?') != -1) getQuery() // get state from query-string
+getQuery()
+
 
 // Required variables (deafult)
 var transp_btn_up_id = "transpose-up"
@@ -39,7 +40,7 @@ var chordsColumn = document.getElementById(sheet_col_id);
 const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
 const infoSwitch = document.getElementById(info_switch_id);
 const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
-const colWrap = document.getElementById(columns_switch_wrapper_id)
+const colWrap = document.getElementById(columns_btn_wrapper_id)
 const columnsSwitch = document.getElementById(columns_switch_wrap_id);
 
 const c = document.getElementById(chords_btn_id)
@@ -57,8 +58,8 @@ function getQuery() {
   console.log('getQuery')
     var queryParams = new URLSearchParams(window.location.search)
     for (const [key, value] of queryParams) {
-      if (key == 't' && value != "") transpose = value
-      else if (key == 'm' && value != "") mode = value
+      if (key == 't' && value != "") transpose = parseInt(value)
+      else if (key == 'm' && value != "") mode = parseInt(value)
       else queryParams.delete(key)
     console.log('ToVar', mode, transpose)
     window.history.pushState(null, null, "/"+window.location.href.substring(window.location.href.indexOf('/') + 1).split("?")[0]);
@@ -67,7 +68,7 @@ function getQuery() {
 }
 
 parseSheets();
-console.log('values on load',mode,transpose)
+console.log('values on load', 'm='+mode,'t='+transpose)
 
 c.addEventListener("click", function() {
   mode = 0
@@ -86,9 +87,9 @@ function styleChanges(print_mode = false) {
 try {
   var meta = document.querySelectorAll(".cp-meta-block")
   var keyText = document.querySelectorAll(".cp-key")
-  var p = document.querySelector('.'+active_class)
   
-  if (mode == 0 || print_mode) {
+  if (mode == 0 || print_mode == true) {
+    var p = document.querySelector("." + active_class)
     if (p) p.classList.remove(active_class)
     c.classList.add(active_class)
     meta.forEach( function(e) {e.style.display = "block"})
@@ -97,6 +98,7 @@ try {
   }	
   
   else if (mode == 1) {
+    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     l.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "none"})
@@ -104,6 +106,7 @@ try {
   } 
   
   else if (mode == 2) {
+    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     n.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "block"})
@@ -116,6 +119,7 @@ cpTarg.innerHTML = "Feil oppsto. Prøv en annen nettleser eller ta kontakt med o
 }
 
 function parseSheets(){
+  console.log('parse', mode, transpose)
 cpTarg.innerHTML = parseChordPro(text,key,mode,transpose);
 printTarget.innerHTML = parseChordPro(text,key,mode,transpose);
 styleChanges()
