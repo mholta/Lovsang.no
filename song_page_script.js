@@ -55,6 +55,68 @@ function initMainScript() {
 
   parseSheets();
 
+  c.addEventListener("click", function() {
+    mode = 0
+    parseSheets()
+  })
+  l.addEventListener("click", function() {
+    mode = 1
+    parseSheets()
+  })
+  n.addEventListener("click", function() {
+    mode = 2
+    parseSheets()
+  })
+
+  document.getElementById(transp_btn_up_id).addEventListener("click", function(){transpose+=1; parseSheets();});
+  document.getElementById(transp_btn_down_id).addEventListener("click", function(){transpose-=1; parseSheets();});
+  document.getElementById(transp_btn_reset_id).addEventListener("click", function(){transpose=0; parseSheets();});
+
+  document.getElementById(print_btn_id).addEventListener("click", printOutSheet, false)
+
+  document.getElementById(gen_PDF_id).addEventListener("click", generatePDF, false)
+
+  columnsSwitchWrap.addEventListener("click", function() {
+    if (columnsSwitch.checked == true) {
+      console.log('columns', true)
+    
+      cpTarg.classList.add("cp-two-columns")
+      twoCol = true
+    } else { 
+      console.log('columns', false)
+      cpTarg.classList.remove("cp-two-columns");
+      twoCol = false
+    }
+    });
+    
+    infoSwitchWrap.addEventListener("click", function() {
+    if (infoSwitch.checked == false) {
+      console.log('infoSwitch', false)
+      infoColumn.classList.remove("hide");
+      chordsColumn.classList.remove("chordsColGrow");
+      cpTarg.classList.remove("cp-two-columns");
+      colWrap.classList.add("hide");
+      }
+    else {
+      console.log('infoSwitch', true)
+      infoColumn.classList.add("hide");
+      chordsColumn.classList.add("chordsColGrow");
+      colWrap.classList.remove("hide");
+      if (twoCol == true) cpTarg.classList.add("cp-two-columns");
+      };
+    })
+    
+    textGrow.addEventListener('click', function() {
+      var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
+      var fontSize = parseFloat(style); 
+      cpTarg.style.fontSize = (fontSize + 2) + 'px';
+    })
+    
+    textShrink.addEventListener('click', function() {
+      var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
+      var fontSize = parseFloat(style); 
+      cpTarg.style.fontSize = (fontSize - 2) + 'px';
+    })
 
 }
 
@@ -72,19 +134,6 @@ function getQuery() {
     }
   }
 }
-
-c.addEventListener("click", function() {
-  mode = 0
-  parseSheets()
-})
-l.addEventListener("click", function() {
-  mode = 1
-  parseSheets()
-})
-n.addEventListener("click", function() {
-  mode = 2
-  parseSheets()
-})
 
 function styleChanges(print_mode = false) {
 try {
@@ -124,15 +173,6 @@ function parseSheets(){
   printTarget.innerHTML = parseChordPro(text,key,mode,transpose);
   styleChanges()
 }
-
-
-document.getElementById(transp_btn_up_id).addEventListener("click", function(){transpose+=1; parseSheets();});
-document.getElementById(transp_btn_down_id).addEventListener("click", function(){transpose-=1; parseSheets();});
-document.getElementById(transp_btn_reset_id).addEventListener("click", function(){transpose=0; parseSheets();});
-
-document.getElementById(print_btn_id).addEventListener("click", printOutSheet, false)
-
-document.getElementById(gen_PDF_id).addEventListener("click", generatePDF, false)
 
 function printOutSheet() {
   styleChanges(true)
@@ -196,47 +236,3 @@ href += '&footer_text=Finn flere ressurser på Lovsang.no'
 window.location.href = href
 window.history.pushState(null, null, "/"+window.location.href.substring(window.location.href.indexOf('/') + 1).split("?")[0]);
 }
-
-
-
-columnsSwitchWrap.addEventListener("click", function() {
-if (columnsSwitch.checked == true) {
-  console.log('columns', true)
-
-  cpTarg.classList.add("cp-two-columns")
-  twoCol = true
-} else { 
-  console.log('columns', false)
-  cpTarg.classList.remove("cp-two-columns");
-  twoCol = false
-}
-});
-
-infoSwitchWrap.addEventListener("click", function() {
-if (infoSwitch.checked == false) {
-  console.log('infoSwitch', false)
-  infoColumn.classList.remove("hide");
-  chordsColumn.classList.remove("chordsColGrow");
-  cpTarg.classList.remove("cp-two-columns");
-  colWrap.classList.add("hide");
-  }
-else {
-  console.log('infoSwitch', true)
-  infoColumn.classList.add("hide");
-  chordsColumn.classList.add("chordsColGrow");
-  colWrap.classList.remove("hide");
-  if (twoCol == true) cpTarg.classList.add("cp-two-columns");
-  };
-})
-
-textGrow.addEventListener('click', function() {
-  var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
-  var fontSize = parseFloat(style); 
-  cpTarg.style.fontSize = (fontSize + 2) + 'px';
-})
-
-textShrink.addEventListener('click', function() {
-  var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
-  var fontSize = parseFloat(style); 
-  cpTarg.style.fontSize = (fontSize - 2) + 'px';
-})
