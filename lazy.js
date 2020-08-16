@@ -3,7 +3,7 @@
   var preVid = document.getElementById("pre-vid")
   var spotifyLoaded = false
   var vidLoaded = false
-  var initVidThumbs = initVidThumbs(iframe)
+  var initVidThumbs = initVidThumbs()
 
 function lazySpotify() {
 	if (! spotifyLoaded && isInViewport(spotifyTarget)) {
@@ -14,7 +14,7 @@ function lazySpotify() {
   }
 }
 
-var isInViewport = function (elem) {
+function isInViewport = function (elem) {
   var bounding = elem.getBoundingClientRect();
   return (
       bounding.top >= -100 &&
