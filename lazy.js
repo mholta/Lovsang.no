@@ -23,7 +23,7 @@ function isInViewport(elem) {
   )
 }
 
-var lazyVideos() = function() {
+var lazyVideos = function() {
 	if (! vidLoaded && isInViewport(preVid)) {
 		vidLoaded = true
 	    initVidThumbs(true)
