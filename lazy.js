@@ -3,6 +3,7 @@
   var preVid = document.getElementById("pre-vid")
   var spotifyLoaded = false
   var vidLoaded = false
+  var initVidThumbs = initVidThumbs(iframe)
 
 function lazySpotify() {
 	if (! spotifyLoaded && isInViewport(spotifyTarget)) {
