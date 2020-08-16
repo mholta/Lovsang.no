@@ -89,9 +89,9 @@ function styleChanges(print_mode = false) {
 try {
   var meta = document.querySelectorAll(".cp-meta-block")
   var keyText = document.querySelectorAll(".cp-key")
+  var p = document.querySelector('.'+active_class)
   
   if (mode == 0 || print_mode) {
-    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     c.classList.add(active_class)
     meta.forEach( function(e) {e.style.display = "block"})
@@ -100,7 +100,6 @@ try {
   }	
   
   else if (mode == 1) {
-    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     l.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "none"})
@@ -108,7 +107,6 @@ try {
   } 
   
   else if (mode == 2) {
-    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     n.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "block"})
