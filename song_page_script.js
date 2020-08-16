@@ -15,9 +15,9 @@ var gen_PDF_id = "generatePDF"
 var info_col_id = "info-column"
 var sheet_col_id = "chords-column"
 var info_switch_wrapper_id = "show-hide-info-switch-wrapper"
-var info_switch_id = "show-hide-info-switch-wrapper"
+var info_switch_id = "show-hide-info-switch"
 var columns_switch_wrap_id = "columns-switch-wrapper"
-var columns_switch_wrapper_id = "col-wrap"
+var columns_switch_wrapper_id = "columns-wrap"
 var columns_switch_id = "columns-switch"
 
 var chords_btn_id = "chords"
@@ -31,27 +31,30 @@ var transpose_wrap_id = "transpose-wrap"
 var text_grow_id = "text-grow"
 var text_shrink_id = "text-shrink"
 var active_class = "cp-active"
-var pdf_name = "Akkorder fra Lovsang.no"
+var pdf_name = "Lovsang.no"
 
-var infoColumn = document.getElementById(info_col_id);
-var chordsColumn = document.getElementById(sheet_col_id);
+function initMainScript() {
+  var infoColumn = document.getElementById(info_col_id);
+  var chordsColumn = document.getElementById(sheet_col_id);
 
-const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
-const infoSwitch = document.getElementById(info_switch_id);
-const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
-const colWrap = document.getElementById(columns_switch_wrapper_id)
-const columnsSwitch = document.getElementById(columns_switch_wrap_id);
+  const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
+  const infoSwitch = document.getElementById(info_switch_id);
+  const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
+  const colWrap = document.getElementById(columns_switch_wrapper_id)
+  const columnsSwitch = document.getElementById(columns_switch_wrap_id);
 
-const c = document.getElementById(chords_btn_id)
-const l = document.getElementById(lyrics_btn_id)
-const n = document.getElementById(nashville_btn_id)
-const cpTarg = document.getElementById(cp_target_id)
-const printTarget = document.getElementById(print_target_id)
-const printContent = document.getElementById(print_content_id) 
-const transposeWrap = document.getElementById(transpose_wrap_id)
-const textGrow = document.getElementById(text_grow_id)
-const textShrink = document.getElementById(text_shrink_id)
-  
+  const c = document.getElementById(chords_btn_id)
+  const l = document.getElementById(lyrics_btn_id)
+  const n = document.getElementById(nashville_btn_id)
+  const cpTarg = document.getElementById(cp_target_id)
+  const printTarget = document.getElementById(print_target_id)
+  const printContent = document.getElementById(print_content_id) 
+  const transposeWrap = document.getElementById(transpose_wrap_id)
+  const textGrow = document.getElementById(text_grow_id)
+  const textShrink = document.getElementById(text_shrink_id)
+}
+
+
 function getQuery() {
 	if (window.location.href.indexOf('?') != -1) {
   console.log('getQuery')
