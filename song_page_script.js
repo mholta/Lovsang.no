@@ -198,10 +198,13 @@ window.history.pushState(null, null, "/"+window.location.href.substring(window.l
 
 
 columnsSwitchWrap.addEventListener("click", function() {
-if (columnsSwitch.checked == true) { 
+if (columnsSwitch.checked == true) {
+  console.log('columns', true)
+
   cpTarg.classList.add("cp-two-columns")
   twoCol = true
 } else { 
+  console.log('columns', false)
   cpTarg.classList.remove("cp-two-columns");
   twoCol = false
 }
@@ -209,12 +212,14 @@ if (columnsSwitch.checked == true) {
 
 infoSwitchWrap.addEventListener("click", function() {
 if (infoSwitch.checked == false) {
+  console.log('infoSwitch', false)
   infoColumn.classList.remove("hide");
   chordsColumn.classList.remove("chordsColGrow");
   cpTarg.classList.remove("cp-two-columns");
   colWrap.classList.add("hide");
   }
 else {
+  console.log('infoSwitch', true)
   infoColumn.classList.add("hide");
   chordsColumn.classList.add("chordsColGrow");
   colWrap.classList.remove("hide");
