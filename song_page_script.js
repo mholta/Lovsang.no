@@ -52,6 +52,10 @@ function initMainScript() {
   const transposeWrap = document.getElementById(transpose_wrap_id)
   const textGrow = document.getElementById(text_grow_id)
   const textShrink = document.getElementById(text_shrink_id)
+
+  parseSheets();
+
+
 }
 
 
@@ -68,9 +72,6 @@ function getQuery() {
     }
   }
 }
-
-parseSheets();
-console.log('values on load',mode,transpose)
 
 c.addEventListener("click", function() {
   mode = 0
@@ -119,9 +120,9 @@ cpTarg.innerHTML = "Feil oppsto. Prøv en annen nettleser eller ta kontakt med o
 }
 
 function parseSheets(){
-cpTarg.innerHTML = parseChordPro(text,key,mode,transpose);
-printTarget.innerHTML = parseChordPro(text,key,mode,transpose);
-styleChanges()
+  cpTarg.innerHTML = parseChordPro(text,key,mode,transpose);
+  printTarget.innerHTML = parseChordPro(text,key,mode,transpose);
+  styleChanges()
 }
 
 
@@ -129,15 +130,13 @@ document.getElementById(transp_btn_up_id).addEventListener("click", function(){t
 document.getElementById(transp_btn_down_id).addEventListener("click", function(){transpose-=1; parseSheets();});
 document.getElementById(transp_btn_reset_id).addEventListener("click", function(){transpose=0; parseSheets();});
 
-document.getElementById(print_btn_id).addEventListener("click", function() {
-printOutSheet()
-})
-document.getElementById(gen_PDF_id).addEventListener("click", function() {
-generatePDF()
-})
+document.getElementById(print_btn_id).addEventListener("click", printOutSheet, false)
+
+document.getElementById(gen_PDF_id).addEventListener("click", generatePDF, false)
+
 function printOutSheet() {
-styleChanges(true)
-window.print()
+  styleChanges(true)
+  window.print()
 }
 
 var currentKey = function() {
