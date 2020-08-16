@@ -17,7 +17,7 @@ var sheet_col_id = "chords-column"
 var info_switch_wrapper_id = "show-hide-info-switch-wrapper"
 var info_switch_id = "show-hide-info-switch"
 var columns_switch_wrap_id = "columns-switch-wrapper"
-var columns_switch_wrapper_id = "columns-wrap"
+var columns_switch_wrapper_id = "col-wrap"
 var columns_switch_id = "columns-switch"
 
 var chords_btn_id = "chords"
@@ -43,7 +43,7 @@ function initMainScript() {
   infoSwitch = document.getElementById(info_switch_id);
   columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
   colWrap = document.getElementById(columns_switch_wrapper_id)
-  columnsSwitch = document.getElementById(columns_switch_wrap_id);
+  columnsSwitch = document.getElementById(columns_switch_id);
 
   c = document.getElementById(chords_btn_id)
   l = document.getElementById(lyrics_btn_id)
