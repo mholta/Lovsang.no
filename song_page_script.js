@@ -3,8 +3,7 @@ var mode = 0;           // query
 var transpose = 0;      // query
 var onlyChords = false
 var twoCol = false
-getQuery()
-
+if (window.location.toString().indexOf('?') != -1) getQuery() // get state from query-string
 
 // Required variables (deafult)
 var transp_btn_up_id = "transpose-up"
@@ -40,7 +39,7 @@ var chordsColumn = document.getElementById(sheet_col_id);
 const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
 const infoSwitch = document.getElementById(info_switch_id);
 const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
-const colWrap = document.getElementById(columns_btn_wrapper_id)
+const colWrap = document.getElementById(columns_switch_wrapper_id)
 const columnsSwitch = document.getElementById(columns_switch_wrap_id);
 
 const c = document.getElementById(chords_btn_id)
@@ -68,7 +67,7 @@ function getQuery() {
 }
 
 parseSheets();
-console.log('values on load', 'm='+mode,'t='+transpose)
+console.log('values on load',mode,transpose)
 
 c.addEventListener("click", function() {
   mode = 0
@@ -87,9 +86,9 @@ function styleChanges(print_mode = false) {
 try {
   var meta = document.querySelectorAll(".cp-meta-block")
   var keyText = document.querySelectorAll(".cp-key")
+  var p = document.querySelector('.'+active_class)
   
-  if (mode == 0 || print_mode == true) {
-    var p = document.querySelector("." + active_class)
+  if (mode == 0 || print_mode) {
     if (p) p.classList.remove(active_class)
     c.classList.add(active_class)
     meta.forEach( function(e) {e.style.display = "block"})
@@ -98,7 +97,6 @@ try {
   }	
   
   else if (mode == 1) {
-    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     l.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "none"})
@@ -106,7 +104,6 @@ try {
   } 
   
   else if (mode == 2) {
-    var p = document.querySelector(active_class)
     if (p) p.classList.remove(active_class)
     n.classList.add(active_class)
     meta.forEach(function(e){e.style.display = "block"})
@@ -119,7 +116,6 @@ cpTarg.innerHTML = "Feil oppsto. Prøv en annen nettleser eller ta kontakt med o
 }
 
 function parseSheets(){
-  console.log('parse', mode, transpose)
 cpTarg.innerHTML = parseChordPro(text,key,mode,transpose);
 printTarget.innerHTML = parseChordPro(text,key,mode,transpose);
 styleChanges()
