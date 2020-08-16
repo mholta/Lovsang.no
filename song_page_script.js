@@ -33,25 +33,27 @@ var text_shrink_id = "text-shrink"
 var active_class = "cp-active"
 var pdf_name = "Lovsang.no"
 
+var infoColumn, chordsColumn, infoSwitchWrap, infoSwitch, columnsSwitchWrap, colWrap, columnsSwitch, c, l, n, cpTarg, printTarget, printContent,transposeWrap, textGrow,textShrink
+
 function initMainScript() {
-  var infoColumn = document.getElementById(info_col_id);
-  var chordsColumn = document.getElementById(sheet_col_id);
+  infoColumn = document.getElementById(info_col_id);
+  chordsColumn = document.getElementById(sheet_col_id);
 
-  const infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
-  const infoSwitch = document.getElementById(info_switch_id);
-  const columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
-  const colWrap = document.getElementById(columns_switch_wrapper_id)
-  const columnsSwitch = document.getElementById(columns_switch_wrap_id);
+  infoSwitchWrap = document.getElementById(info_switch_wrapper_id);
+  infoSwitch = document.getElementById(info_switch_id);
+  columnsSwitchWrap = document.getElementById(columns_switch_wrap_id);
+  colWrap = document.getElementById(columns_switch_wrapper_id)
+  columnsSwitch = document.getElementById(columns_switch_wrap_id);
 
-  const c = document.getElementById(chords_btn_id)
-  const l = document.getElementById(lyrics_btn_id)
-  const n = document.getElementById(nashville_btn_id)
-  const cpTarg = document.getElementById(cp_target_id)
-  const printTarget = document.getElementById(print_target_id)
-  const printContent = document.getElementById(print_content_id) 
-  const transposeWrap = document.getElementById(transpose_wrap_id)
-  const textGrow = document.getElementById(text_grow_id)
-  const textShrink = document.getElementById(text_shrink_id)
+  c = document.getElementById(chords_btn_id)
+  l = document.getElementById(lyrics_btn_id)
+  n = document.getElementById(nashville_btn_id)
+  cpTarg = document.getElementById(cp_target_id)
+  printTarget = document.getElementById(print_target_id)
+  printContent = document.getElementById(print_content_id) 
+  transposeWrap = document.getElementById(transpose_wrap_id)
+  textGrow = document.getElementById(text_grow_id)
+  textShrink = document.getElementById(text_shrink_id)
 
   parseSheets();
 
@@ -77,46 +79,46 @@ function initMainScript() {
   document.getElementById(gen_PDF_id).addEventListener("click", generatePDF, false)
 
   columnsSwitchWrap.addEventListener("click", function() {
-    if (columnsSwitch.checked == true) {
-      console.log('columns', true)
-    
-      cpTarg.classList.add("cp-two-columns")
-      twoCol = true
-    } else { 
-      console.log('columns', false)
-      cpTarg.classList.remove("cp-two-columns");
-      twoCol = false
-    }
-    });
-    
-    infoSwitchWrap.addEventListener("click", function() {
-    if (infoSwitch.checked == false) {
-      console.log('infoSwitch', false)
-      infoColumn.classList.remove("hide");
-      chordsColumn.classList.remove("chordsColGrow");
-      cpTarg.classList.remove("cp-two-columns");
-      colWrap.classList.add("hide");
-      }
-    else {
-      console.log('infoSwitch', true)
-      infoColumn.classList.add("hide");
-      chordsColumn.classList.add("chordsColGrow");
-      colWrap.classList.remove("hide");
-      if (twoCol == true) cpTarg.classList.add("cp-two-columns");
-      };
-    })
-    
-    textGrow.addEventListener('click', function() {
-      var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
-      var fontSize = parseFloat(style); 
-      cpTarg.style.fontSize = (fontSize + 2) + 'px';
-    })
-    
-    textShrink.addEventListener('click', function() {
-      var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
-      var fontSize = parseFloat(style); 
-      cpTarg.style.fontSize = (fontSize - 2) + 'px';
-    })
+if (columnsSwitch.checked == true) {
+  console.log('columns', true)
+
+  cpTarg.classList.add("cp-two-columns")
+  twoCol = true
+} else { 
+  console.log('columns', false)
+  cpTarg.classList.remove("cp-two-columns");
+  twoCol = false
+}
+});
+
+infoSwitchWrap.addEventListener("click", function() {
+if (infoSwitch.checked == false) {
+  console.log('infoSwitch', false)
+  infoColumn.classList.remove("hide");
+  chordsColumn.classList.remove("chordsColGrow");
+  cpTarg.classList.remove("cp-two-columns");
+  colWrap.classList.add("hide");
+  }
+else {
+  console.log('infoSwitch', true)
+  infoColumn.classList.add("hide");
+  chordsColumn.classList.add("chordsColGrow");
+  colWrap.classList.remove("hide");
+  if (twoCol == true) cpTarg.classList.add("cp-two-columns");
+  };
+})
+
+textGrow.addEventListener('click', function() {
+  var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
+  var fontSize = parseFloat(style); 
+  cpTarg.style.fontSize = (fontSize + 2) + 'px';
+})
+
+textShrink.addEventListener('click', function() {
+  var style = window.getComputedStyle(cpTarg, null).getPropertyValue('font-size');
+  var fontSize = parseFloat(style); 
+  cpTarg.style.fontSize = (fontSize - 2) + 'px';
+})
 
 }
 
