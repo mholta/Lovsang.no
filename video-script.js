@@ -80,7 +80,3 @@ function initVidThumbs(iframe) {
       }
     })
 };
-
-
-// LAZY LOAD
-
