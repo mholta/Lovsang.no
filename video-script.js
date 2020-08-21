@@ -1,4 +1,4 @@
-function initVidThumbs(iframe) {
+function initVidThumbs(lazy, iframe) {
   
   var parseVidURL = function (url) {
       // - Supported YouTube URL formats:
@@ -59,13 +59,34 @@ function initVidThumbs(iframe) {
     }
   }
 
+  var entersViewport = function (elem) {
+    var bounding = elem.getBoundingClientRect();
+    return (
+        bounding.top >= - elem.offsetHeight &&
+        bounding.left >= 0 &&
+        bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) + elem.offsetHeight &&
+        bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+    )
+  }
+  
   var elements = document.querySelectorAll('[data-vid-src]')
-  elements.forEach(function(elem) {
+
+  if (elements) elements.forEach(function(elem) {
       var src = elem.getAttribute("data-vid-src");
-      setThumbSRC(src, elem);
+      var isLoaded = false;
+      var loadThumb = function() {
+        setThumbSRC(src, elem);
+        isLoaded = true
+        console.log("loaded")
+      }
+      if (entersViewport(elem)) loadThumb()
+      if (lazy && ! isLoaded) {
+        window.addEventListener("scroll", function() {
+          if (entersViewport(elem) && !isLoaded) loadThumb()
+        })
+      }
 
       if (iframe) {
-        elem.classList.add("cursor")
         elem.addEventListener("click", function() {
           var newHTML
           var video = parseVidURL(src)
@@ -79,4 +100,5 @@ function initVidThumbs(iframe) {
         })
       }
     })
+  else console.error("Couldn't find any elements with '[data-vid-src]'")
 };
