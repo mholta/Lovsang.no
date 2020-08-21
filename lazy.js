@@ -1,8 +1,6 @@
  var spotifyID = ""
   var spotifyTarget = document.getElementById("spotify-embed-target")
-  var preVid = document.getElementById("pre-vid")
   var spotifyLoaded = false
-  var vidLoaded = false
 
 function lazySpotify() {
 	if (! spotifyLoaded && isInViewport(spotifyTarget)) {
@@ -23,21 +21,10 @@ function isInViewport(elem) {
   )
 }
 
-var lazyVideos = function() {
-	if (! vidLoaded && isInViewport(preVid)) {
-		vidLoaded = true
-	    initVidThumbs(true)
-	    window.removeEventListener('scroll', lazyVideos, false)
-	    window.removeEventListener('resize', lazyVideos, false)
-  }
-}
+
 
 function initLazy() {
   lazySpotify()
-	lazyVideos()
   window.addEventListener('scroll', lazySpotify, false)
   window.addEventListener('resize', lazySpotify, false)
-
-  window.addEventListener('scroll', lazyVideos, false)
-  window.addEventListener('resize', lazyVideos, false)
 }
