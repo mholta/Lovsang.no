@@ -31,6 +31,7 @@ function generateDeepLink(str) {
     query = query.replace(word, "");
   };
   a.href = "/search?query=" + query;
+  a.href += "&person=true"
   console.log(query);
   return a;
 };
